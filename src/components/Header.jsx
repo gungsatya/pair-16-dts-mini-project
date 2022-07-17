@@ -14,6 +14,7 @@ import {
   Tooltip,
   Menu,
   MenuItem,
+  Avatar,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -98,7 +99,7 @@ function Header() {
   }));
 
   return (
-    <AppBar color="black" position="sticky">
+    <AppBar color="black" position="fixed" elevation={0}>
       <Container maxWidth="false">
         <Toolbar disableGutters>
           <Stack
@@ -148,7 +149,12 @@ function Header() {
                   onClick={handleOpenUserMenu}
                   sx={{ p: 0, color: "white" }}
                 >
-                  <AccountCircle />
+                  {/* <AccountCircle /> */}
+                  <Avatar
+                    alt="User Profile"
+                    src="/assets/images/ProfilePicture.png"
+                    variant="square"
+                  />
                 </IconButton>
               </Tooltip>
               <Menu

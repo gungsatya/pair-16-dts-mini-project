@@ -4,6 +4,7 @@ export default function Footer() {
   return (
     <>
       <Box
+        component="footer"
         sx={(theme) => ({
           backgroundColor: theme.palette.black.main,
           minHeight: "100px",

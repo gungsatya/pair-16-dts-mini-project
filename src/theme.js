@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
   palette: {
-    red: {
+    netflixRed: {
       main: "#B9090B",
       contrastText: "#fff",
     },

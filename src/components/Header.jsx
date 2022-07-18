@@ -19,6 +19,47 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+
+import { logoutUser } from "../authentication/firebase.js";
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(1),
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "0ch",
+      "&:focus": {
+        width: "20ch",
+      },
+    },
+  },
+}));
 
 const pages = [
   {
@@ -29,19 +70,31 @@ const pages = [
     text: "Movies",
     path: "/movies",
   },
+  {
+    text: "TV Shows",
+    path: "/tv-shows",
+  },
+  {
+    text: "My List",
+    path: "/my-list",
+  },
 ];
-const settings = ["Sign In"];
 
-const StyledNavLink = styled(Button)((theme) => ({
+const StyledNavLink = styled(Button)(({ theme }) => ({
   my: 2,
-  color: "white",
   fontWeight: "normal",
   display: "block",
   textTransform: "capitalize",
+  color: theme.palette.gray.main,
+  "&.active": {
+    fontWeight: "bold",
+    color: "#fff",
+  },
 }));
 
 function Header() {
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -51,43 +104,11 @@ function Header() {
     setAnchorElUser(null);
   };
 
-  const Search = styled("div")(({ theme }) => ({
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "auto",
-    },
-  }));
-
-  const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  }));
-
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
-    "& .MuiInputBase-input": {
-      padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
-        width: "0ch",
-        "&:focus": {
-          width: "20ch",
-        },
-      },
-    },
-  }));
+  async function logout() {
+    handleCloseUserMenu();
+    await logoutUser();
+    navigate("/login");
+  }
 
   return (
     <AppBar color="black" position="fixed" elevation={0}>
@@ -103,14 +124,8 @@ function Header() {
             <img src="/assets/logo.png" alt="Logo" width="36" height="44" />
             <Box sx={{ display: "flex" }}>
               {pages.map((page, idx) => (
-                <StyledNavLink
-                  key={idx}
-                  //   to={page.path}
-                  component={"a"}
-                >
-                  <Typography sx={{ textAlign: "center" }}>
-                    {page.text}
-                  </Typography>
+                <StyledNavLink key={idx} to={page.path} component={NavLink}>
+                  {page.text}
                 </StyledNavLink>
               ))}
             </Box>
@@ -135,7 +150,7 @@ function Header() {
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
-              <Tooltip title="Open settings">
+              <Tooltip title="User">
                 <IconButton
                   onClick={handleOpenUserMenu}
                   sx={{ p: 0, color: "white" }}
@@ -164,11 +179,9 @@ function Header() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem onClick={logout}>
+                  <Typography textAlign="center">Log out</Typography>
+                </MenuItem>
               </Menu>
             </Box>
           </Stack>

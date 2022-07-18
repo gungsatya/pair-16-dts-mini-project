@@ -3,15 +3,45 @@ import HomePage from "./containers/HomePage";
 import LoginPage from "./containers/LoginPage";
 import ProfilesPage from "./containers/ProfilesPage";
 import RegisterPage from "./containers/RegisterPage";
+import ProtectedAuth from "./templates/ProtectedAuth";
+import UnProtectedAuth from "./templates/UnProtectedAuth";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/profiles" element={<ProfilesPage />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedAuth>
+              <HomePage />
+            </ProtectedAuth>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <UnProtectedAuth>
+              <LoginPage />
+            </UnProtectedAuth>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <UnProtectedAuth>
+              <RegisterPage />
+            </UnProtectedAuth>
+          }
+        />
+        <Route
+          path="/profiles"
+          element={
+            <ProtectedAuth>
+              <ProfilesPage />
+            </ProtectedAuth>
+          }
+        />
       </Routes>
     </>
   );

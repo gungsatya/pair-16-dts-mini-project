@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import NotFoundPage from "./components/NotFoundPage";
 import HomePage from "./containers/HomePage";
 import LoginPage from "./containers/LoginPage";
 import ProfilesPage from "./containers/ProfilesPage";
@@ -42,6 +43,7 @@ function App() {
             </ProtectedAuth>
           }
         />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );

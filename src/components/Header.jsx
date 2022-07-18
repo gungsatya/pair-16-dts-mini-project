@@ -10,7 +10,6 @@ import {
   Typography,
   InputBase,
   IconButton,
-  Badge,
   Tooltip,
   Menu,
   MenuItem,
@@ -140,15 +139,16 @@ function Header() {
                   inputProps={{ "aria-label": "search" }}
                 />
               </Search>
-              <Typography variant="span">Satya Wibawa</Typography>
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
+              <Button
+                variant="span"
+                component={NavLink}
+                to="/profiles"
+                sx={{ textTransform: "capitalize" }}
               >
-                <Badge badgeContent={17} color="error">
-                  <NotificationsIcon />
-                </Badge>
+                User
+              </Button>
+              <IconButton size="large" color="inherit">
+                <NotificationsIcon />
               </IconButton>
               <Tooltip title="User">
                 <IconButton

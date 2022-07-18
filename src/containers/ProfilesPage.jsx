@@ -1,13 +1,11 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import Profile from "../components/Profile";
-import Header from "./../components/Header";
+import HeaderOnly from "../templates/HeaderOnly";
 
-export default function Profiles() {
+export default function ProfilesPage() {
   return (
-    <>
-      <Header />
+    <HeaderOnly>
       <Box
-        component="main"
         sx={(theme) => ({
           width: "100vw",
           height: "100vh",
@@ -64,6 +62,6 @@ export default function Profiles() {
           </Stack>
         </Container>
       </Box>
-    </>
+    </HeaderOnly>
   );
 }

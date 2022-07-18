@@ -1,13 +1,10 @@
 import { Box } from "@mui/material";
-import Footer from "../components/Footer";
-import Header from "./../components/Header";
+import HeaderFooter from "../templates/HeaderFooter";
 
-export default function Homepage() {
+export default function HomePage() {
   return (
-    <>
-      <Header />
+    <HeaderFooter>
       <Box sx={{ height: "80vh" }}></Box>
-      <Footer />
-    </>
+    </HeaderFooter>
   );
 }

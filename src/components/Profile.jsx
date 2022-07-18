@@ -11,7 +11,7 @@ export default function Profile(props) {
         color: theme.palette.gray.main,
         "&:hover": {
           color: theme.palette.smokeWhite,
-          "& .MuiBox-root:first-child": {
+          "& .MuiBox-root": {
             boxShadow: "0 0 0 5px " + theme.palette.smokeWhite,
             backgroundColor: theme.palette.smokeWhite,
           },

@@ -111,16 +111,21 @@ function Header() {
 
   return (
     <AppBar color="black" position="fixed" elevation={0}>
-      <Container maxWidth="false">
+      <Box sx={{ padding: "25px 50px" }}>
         <Toolbar disableGutters>
           <Stack
-            sx={{ padding: "25px 60px", width: "100%" }}
+            sx={{ width: "100%" }}
             direction="row"
             alignItems="center"
             justifyContent="space-between"
             spacing={4}
           >
-            <img src="/assets/logo.png" alt="Logo" width="36" height="44" />
+            <Box
+              component="img"
+              src="/assets/logo.png"
+              alt="Logo"
+              sx={{ width: "36px" }}
+            />
             <Box sx={{ display: "flex" }}>
               {pages.map((page, idx) => (
                 <StyledNavLink key={idx} to={page.path} component={NavLink}>
@@ -186,7 +191,7 @@ function Header() {
             </Box>
           </Stack>
         </Toolbar>
-      </Container>
+      </Box>
     </AppBar>
   );
 }

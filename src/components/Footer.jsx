@@ -9,11 +9,11 @@ export default function Footer() {
           backgroundColor: theme.palette.black.main,
           minHeight: "100px",
           color: theme.palette.gray.main,
-          padding: "35px 30px",
+          padding: "35px 0",
           fontSize: "13px",
         })}
       >
-        <Container>
+        <Container maxWidth="xl">
           <Stack direction="column" gap={3}>
             <Grid container spacing={2}>
               <Grid item xs={3}>

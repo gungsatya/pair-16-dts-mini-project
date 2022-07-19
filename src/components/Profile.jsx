@@ -26,7 +26,6 @@ export default function Profile(props) {
           alignItems: "center",
           justifyContent: "center",
           borderRadius: theme.shape.borderRadius,
-          overflow: "hidden",
         })}
       >
         {props.children}

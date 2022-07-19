@@ -2,7 +2,6 @@ import {
   AppBar,
   Box,
   Button,
-  Container,
   alpha,
   Stack,
   styled,
@@ -21,6 +20,8 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { logoutUser } from "../authentication/firebase.js";
+import { auth } from "../authentication/firebase.js";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -74,8 +75,8 @@ const pages = [
     path: "/tv-shows",
   },
   {
-    text: "My List",
-    path: "/my-list",
+    text: "People",
+    path: "/people",
   },
 ];
 
@@ -92,6 +93,7 @@ const StyledNavLink = styled(Button)(({ theme }) => ({
 }));
 
 function Header() {
+  const [user] = useAuthState(auth);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
 
@@ -148,9 +150,9 @@ function Header() {
                 variant="span"
                 component={NavLink}
                 to="/profiles"
-                sx={{ textTransform: "capitalize" }}
+                sx={{ textTransform: "none" }}
               >
-                User
+                {user.email}
               </Button>
               <IconButton size="large" color="inherit">
                 <NotificationsIcon />
@@ -160,7 +162,6 @@ function Header() {
                   onClick={handleOpenUserMenu}
                   sx={{ p: 0, color: "white" }}
                 >
-                  {/* <AccountCircle /> */}
                   <Avatar
                     alt="User Profile"
                     src="/assets/images/ProfilePicture.png"

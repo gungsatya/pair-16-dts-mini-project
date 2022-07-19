@@ -12,6 +12,8 @@ export default function HeaderFooter(props) {
           paddingTop: "100px",
           backgroundColor: theme.palette.black.main,
           color: theme.palette.black.contrastText,
+          width: "100vw",
+          position: "relative",
         })}
       >
         {props.children}

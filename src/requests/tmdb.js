@@ -21,7 +21,9 @@ axios.interceptors.request.use(
 );
 
 const getImageUrl = (path, size = "original") => {
-  return `https://image.tmdb.org/t/p/${size}${path}`;
+  return path != null
+    ? `https://image.tmdb.org/t/p/${size}${path}`
+    : "http://via.placeholder.com/170x96";
 };
 
 const getMovieGenres = () => {
@@ -36,4 +38,41 @@ const getPopularMovies = (page = 1) => {
   });
 };
 
-export { TMDB_BASE_URL, getImageUrl, getMovieGenres, getPopularMovies };
+const getPopularTV = (page = 1) => {
+  return axios.get("/tv/popular", {
+    params: {
+      page: page,
+    },
+  });
+};
+
+const getPopularPerson = (page = 1) => {
+  return axios.get("/person/popular", {
+    params: {
+      page: page,
+    },
+  });
+};
+
+const getTopRatedMovies = (page = 1) => {
+  return axios.get("/movie/top_rated", {
+    params: {
+      page: page,
+    },
+  });
+};
+
+const getTrendingToday = () => {
+  return axios.get("/trending/all/day");
+};
+
+export {
+  TMDB_BASE_URL,
+  getImageUrl,
+  getMovieGenres,
+  getPopularMovies,
+  getPopularTV,
+  getTopRatedMovies,
+  getPopularPerson,
+  getTrendingToday,
+};

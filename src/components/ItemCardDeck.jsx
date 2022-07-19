@@ -8,9 +8,8 @@ import {
   CardContent,
   IconButton,
   Box,
-  Container,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getImageUrl } from "../requests/tmdb";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -43,7 +42,7 @@ const StyledMovieCard = styled(Card)({
     transform: "translateX(25%)",
   },
   "&:hover": {
-    transform: "scale(1.5) !important",
+    transform: "scale(1.4) !important",
   },
 });
 
@@ -54,7 +53,7 @@ const PrevButton = styled(IconButton)(({ theme }) => ({
   left: 0,
   width: "55px",
   height: "100%",
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  backgroundColor: "rgba(0, 0, 0, 0.8)",
   border: 0,
   outline: 0,
   padding: 0,
@@ -69,7 +68,7 @@ const NextButton = styled(IconButton)(({ theme }) => ({
   right: 0,
   width: "55px",
   height: "100%",
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  backgroundColor: "rgba(0, 0, 0, 0.8)",
   border: 0,
   outline: 0,
   padding: 0,
@@ -79,29 +78,45 @@ const NextButton = styled(IconButton)(({ theme }) => ({
 
 const PADDINGS = 150;
 
-export default function MovieCardDeck({ title, items = [] }) {
-  const containerRef = useRef(null);
-  const elementRef = useRef(null);
-
+export default function ItemCardDeck({
+  title,
+  items = [],
+  type = "movie",
+  item_name = "title",
+  image = "backdrop_path",
+}) {
   const [elementWidth, setElementWidth] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
+  const containerRef = useCallback(
+    (node) => {
+      if (node !== null) {
+        const containerWidth = node.getBoundingClientRect().width - PADDINGS;
+        setContainerWidth(containerWidth);
+        setTotalInViewport(Math.floor(containerWidth / elementWidth));
+      }
+    },
+    [elementWidth]
+  );
+  const elementRef = useCallback((node) => {
+    if (node !== null) {
+      setElementWidth(node.getBoundingClientRect().width);
+    }
+  }, []);
+
   const [totalInViewport, setTotalInViewport] = useState(0);
   const [viewed, setViewed] = useState(0);
   const [distance, setDistance] = useState(0);
 
-  useEffect(() => {
-    if (elementRef.current) {
-      setElementWidth(elementRef.current.clientWidth);
-    }
-  }, [elementRef]);
+  const [hasPrev, setHasPrev] = useState(false);
+  const [hasNext, setHasNext] = useState(false);
 
   useEffect(() => {
-    if (containerRef.current) {
-      const containerWidth = containerRef.current.clientWidth - PADDINGS;
-      setContainerWidth(containerWidth);
-      setTotalInViewport(Math.floor(containerWidth / elementWidth));
-    }
-  }, [containerRef, elementWidth]);
+    setHasPrev(distance < 0);
+  }, [distance]);
+
+  useEffect(() => {
+    setHasNext(viewed + totalInViewport < items.length);
+  }, [viewed, totalInViewport, items]);
 
   const handlePrev = () => {
     setViewed(viewed - totalInViewport);
@@ -117,9 +132,6 @@ export default function MovieCardDeck({ title, items = [] }) {
     style: { transform: `translate3d(${distance}px, 0, 0)` },
   };
 
-  const hasPrev = distance < 0;
-  const hasNext = viewed + totalInViewport < items.length;
-
   return (
     <Stack
       direction="column"
@@ -127,6 +139,7 @@ export default function MovieCardDeck({ title, items = [] }) {
       sx={(theme) => ({
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
+        width: "100%",
       })}
     >
       <Box sx={{ padding: "0 50px" }}>
@@ -147,16 +160,16 @@ export default function MovieCardDeck({ title, items = [] }) {
           >
             {items.map((item, idx) => {
               return (
-                <StyledMovieCard key={idx} ref={elementRef}>
+                <StyledMovieCard key={idx} ref={elementRef} variant="outlined">
                   <CardActionArea>
                     <CardMedia
                       component="img"
-                      image={getImageUrl(item.backdrop_path, "w300")}
-                      alt={`${item.title} Backdrop`}
+                      image={getImageUrl(item[image], "w300")}
+                      alt={`${item[item_name]} Backdrop`}
                     />
                     <CardContent>
                       <Typography variant="h6" component="div" noWrap>
-                        {item.title}
+                        {item[item_name]}
                       </Typography>
                     </CardContent>
                   </CardActionArea>

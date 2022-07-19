@@ -5,7 +5,15 @@ export default function HeaderOnly(props) {
   return (
     <>
       <Header />
-      <Box component="main">{props.children}</Box>
+      <Box
+        component="main"
+        sx={(theme) => ({
+          backgroundColor: theme.palette.black.main,
+          color: theme.palette.black.contrastText,
+        })}
+      >
+        {props.children}
+      </Box>
     </>
   );
 }

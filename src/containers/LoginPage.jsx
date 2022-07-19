@@ -11,7 +11,7 @@ export default function LoginPage() {
   async function _login(email, password) {
     const response = await loginUserWithEmailPassword(email, password);
     if (response.status) {
-      navigate("/");
+      navigate("/profiles");
     } else {
       // setLoginError(response.error);
     }

@@ -9,7 +9,7 @@ export default function UnProtectedAuth({ children }) {
 
   useEffect(() => {
     if (user) {
-      navigate("/");
+      navigate("/profiles");
       return;
     }
   }, [user, navigate]);

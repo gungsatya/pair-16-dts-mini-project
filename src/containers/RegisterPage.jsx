@@ -11,7 +11,7 @@ export default function RegisterPage() {
   function _register(email, password) {
     const response = registerUserWithEmailPassword(email, password);
     if (response.status) {
-      navigate("/");
+      navigate("/profiles");
     } else {
     }
   }

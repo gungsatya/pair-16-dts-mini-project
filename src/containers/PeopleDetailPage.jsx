@@ -62,7 +62,7 @@ export default function PeopleDetailPage() {
                 </Typography>
                 {detail.deathday && (
                   <Typography variant="body1" color="text.secondary">
-                    Passaway on
+                    Pass Away on
                     {new Date(detail.deathday).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",

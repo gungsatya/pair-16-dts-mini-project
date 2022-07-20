@@ -11,7 +11,7 @@ import ItemCardDeck from "../components/ItemCardDeck";
 import Carousel from "react-material-ui-carousel";
 import HeroItem from "../components/HeroItem";
 
-export default function HomePage() {
+export default function DashboardPage() {
   const [popularMovies, setPopularMovies] = useState([]);
   const [popularTV, setPopularTV] = useState([]);
   const [popularPerson, setPopularPerson] = useState([]);

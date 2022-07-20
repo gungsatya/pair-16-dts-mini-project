@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import NotFoundPage from "./containers/NotFoundPage";
-import HomePage from "./containers/HomePage";
 import LoginPage from "./containers/LoginPage";
 import ProfilesPage from "./containers/ProfilesPage";
 import RegisterPage from "./containers/RegisterPage";
@@ -9,6 +8,7 @@ import UnProtectedAuth from "./templates/UnProtectedAuth";
 import ItemMainPage from "./containers/ItemMainPage";
 import MovieTVDetailPage from "./containers/MovieTVDetailPage";
 import PeopleDetailPage from "./containers/PeopleDetailPage";
+import DashboardPage from "./containers/Dashboard";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
           path="/"
           element={
             <ProtectedAuth>
-              <HomePage />
+              <DashboardPage />
             </ProtectedAuth>
           }
         />

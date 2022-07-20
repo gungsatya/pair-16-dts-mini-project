@@ -54,19 +54,19 @@ export default function HomePage() {
           ))}
         </Carousel>
         <ItemCardDeck
-          type="movie"
+          type="movies"
           item_name="original_title"
           title="Popular Movies"
           items={popularMovies}
         />
         <ItemCardDeck
-          type="tv"
+          type="tv-shows"
           item_name="original_name"
           title="Popular TV"
           items={popularTV}
         />
         <ItemCardDeck
-          type="person"
+          type="persons"
           item_name="name"
           title="Popular Person"
           items={popularPerson}

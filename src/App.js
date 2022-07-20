@@ -8,6 +8,7 @@ import ProtectedAuth from "./templates/ProtectedAuth";
 import UnProtectedAuth from "./templates/UnProtectedAuth";
 import ItemMainPage from "./containers/ItemMainPage";
 import MovieTVDetailPage from "./containers/MovieTVDetailPage";
+import PeopleDetailPage from "./containers/PeopleDetailPage";
 
 function App() {
   return (
@@ -50,6 +51,14 @@ function App() {
           element={
             <ProtectedAuth>
               <ItemMainPage />
+            </ProtectedAuth>
+          }
+        />
+        <Route
+          path="/src/persons/detail/:id"
+          element={
+            <ProtectedAuth>
+              <PeopleDetailPage />
             </ProtectedAuth>
           }
         />

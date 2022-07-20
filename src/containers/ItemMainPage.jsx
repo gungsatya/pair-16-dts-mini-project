@@ -167,6 +167,11 @@ export default function ItemMainPage() {
     });
   }
 
+  function goDetailPage(id, type = null) {
+    type = type ?? pageType;
+    navigate(`/src/${type}/detail/${id}`);
+  }
+
   const dateFormat = {
     year: "numeric",
     month: "long",
@@ -202,7 +207,7 @@ export default function ItemMainPage() {
               return (
                 <Grid key={idx} item xs={6} md={3}>
                   <StyledMovieCard variant="outlined">
-                    <CardActionArea>
+                    <CardActionArea onClick={(e) => goDetailPage(item.id)}>
                       <CardMedia
                         component="img"
                         image={getImageUrl(interpredItem.image, "w300")}
@@ -220,7 +225,7 @@ export default function ItemMainPage() {
             })}
           </Grid>
           {hasNext && (
-            <Button onClick={goNextPage} variant="outlined">
+            <Button onClick={goNextPage} variant="outlined" size="large">
               Load More
             </Button>
           )}

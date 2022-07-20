@@ -1,4 +1,5 @@
 import { Box, Button, styled, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../requests/tmdb";
 
 const Content = styled(Box)(({ theme }) => ({
@@ -71,6 +72,12 @@ const Detail = styled(Button)(({ theme }) => ({
 }));
 
 export default function HeroItem({ id, type, title, image, overview }) {
+  const navigate = useNavigate();
+
+  function goDetailPage() {
+    navigate(`/src/${type}/detail/${id}`);
+  }
+
   return (
     <Content>
       <Background>
@@ -85,7 +92,11 @@ export default function HeroItem({ id, type, title, image, overview }) {
         <AreaContainer>
           <Title variant="h3">{title}</Title>
           <Overview variant="body1">{overview}</Overview>
-          <Detail variant="outlined" color="error">
+          <Detail
+            variant="outlined"
+            color="error"
+            onClick={() => goDetailPage()}
+          >
             Detail
           </Detail>
         </AreaContainer>

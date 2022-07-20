@@ -14,6 +14,7 @@ import { getImageUrl } from "../requests/tmdb";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { useNavigate } from "react-router-dom";
 
 const StyledStack = styled(Stack)(({ theme }) => ({
   position: "relative",
@@ -85,6 +86,7 @@ export default function ItemCardDeck({
   item_name = "title",
   image = "backdrop_path",
 }) {
+  const navigate = useNavigate();
   const [elementWidth, setElementWidth] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
   const containerRef = useCallback(
@@ -132,6 +134,10 @@ export default function ItemCardDeck({
     style: { transform: `translate3d(${distance}px, 0, 0)` },
   };
 
+  function goDetailPage(id) {
+    navigate(`/src/${type}/detail/${id}`);
+  }
+
   return (
     <Stack
       direction="column"
@@ -161,7 +167,7 @@ export default function ItemCardDeck({
             {items.map((item, idx) => {
               return (
                 <StyledMovieCard key={idx} ref={elementRef} variant="outlined">
-                  <CardActionArea>
+                  <CardActionArea onClick={() => goDetailPage(item.id)}>
                     <CardMedia
                       component="img"
                       image={getImageUrl(item[image], "w300")}

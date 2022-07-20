@@ -82,6 +82,18 @@ const getOnTheAirTV = (page = 1) => {
   });
 };
 
+const getDetail = (type, id) => {
+  return axios.get(`/${type}/${id}`);
+};
+
+const getVideos = (type, id) => {
+  return axios.get(`/${type}/${id}/videos`);
+};
+
+const getSimilar = (type, id) => {
+  return axios.get(`/${type}/${id}/similar`);
+};
+
 export {
   TMDB_BASE_URL,
   getImageUrl,
@@ -93,4 +105,7 @@ export {
   getTrendingToday,
   getNowPlayingMovies,
   getOnTheAirTV,
+  getVideos,
+  getDetail,
+  getSimilar,
 };

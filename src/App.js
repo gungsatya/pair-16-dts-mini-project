@@ -7,6 +7,7 @@ import RegisterPage from "./containers/RegisterPage";
 import ProtectedAuth from "./templates/ProtectedAuth";
 import UnProtectedAuth from "./templates/UnProtectedAuth";
 import ItemMainPage from "./containers/ItemMainPage";
+import MovieTVDetailPage from "./containers/MovieTVDetailPage";
 
 function App() {
   return (
@@ -49,6 +50,14 @@ function App() {
           element={
             <ProtectedAuth>
               <ItemMainPage />
+            </ProtectedAuth>
+          }
+        />
+        <Route
+          path="/src/:type/detail/:id"
+          element={
+            <ProtectedAuth>
+              <MovieTVDetailPage />
             </ProtectedAuth>
           }
         />

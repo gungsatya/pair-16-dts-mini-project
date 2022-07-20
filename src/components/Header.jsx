@@ -68,15 +68,15 @@ const pages = [
   },
   {
     text: "Movies",
-    path: "/movies",
+    path: "/src/movies",
   },
   {
     text: "TV Shows",
-    path: "/tv-shows",
+    path: "/src/tv-shows",
   },
   {
-    text: "People",
-    path: "/people",
+    text: "Persons",
+    path: "/src/persons",
   },
 ];
 

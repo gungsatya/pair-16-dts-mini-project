@@ -3,7 +3,7 @@ import HeaderFooter from "../templates/HeaderFooter";
 import { useEffect, useState } from "react";
 import {
   getPopularMovies,
-  getPopularPerson,
+  getPopularPersons,
   getPopularTV,
   getTrendingToday,
 } from "../requests/tmdb";
@@ -24,7 +24,7 @@ export default function HomePage() {
     getPopularTV().then((data) => {
       setPopularTV(data.data.results);
     });
-    getPopularPerson().then((data) => {
+    getPopularPersons().then((data) => {
       setPopularPerson(data.data.results);
     });
     getTrendingToday().then((data) => {
@@ -53,7 +53,12 @@ export default function HomePage() {
             />
           ))}
         </Carousel>
-        <ItemCardDeck title="Popular Movies" items={popularMovies} />
+        <ItemCardDeck
+          type="movie"
+          item_name="original_title"
+          title="Popular Movies"
+          items={popularMovies}
+        />
         <ItemCardDeck
           type="tv"
           item_name="original_name"

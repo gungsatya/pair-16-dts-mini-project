@@ -6,6 +6,7 @@ import ProfilesPage from "./containers/ProfilesPage";
 import RegisterPage from "./containers/RegisterPage";
 import ProtectedAuth from "./templates/ProtectedAuth";
 import UnProtectedAuth from "./templates/UnProtectedAuth";
+import ItemMainPage from "./containers/ItemMainPage";
 
 function App() {
   return (
@@ -40,6 +41,14 @@ function App() {
           element={
             <ProtectedAuth>
               <ProfilesPage />
+            </ProtectedAuth>
+          }
+        />
+        <Route
+          path="/src/:type"
+          element={
+            <ProtectedAuth>
+              <ItemMainPage />
             </ProtectedAuth>
           }
         />

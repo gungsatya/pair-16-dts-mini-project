@@ -46,7 +46,7 @@ const getPopularTV = (page = 1) => {
   });
 };
 
-const getPopularPerson = (page = 1) => {
+const getPopularPersons = (page = 1) => {
   return axios.get("/person/popular", {
     params: {
       page: page,
@@ -66,6 +66,22 @@ const getTrendingToday = () => {
   return axios.get("/trending/all/day");
 };
 
+const getNowPlayingMovies = (page = 1) => {
+  return axios.get("/movie/now_playing", {
+    params: {
+      page: page,
+    },
+  });
+};
+
+const getOnTheAirTV = (page = 1) => {
+  return axios.get("/tv/on_the_air", {
+    params: {
+      page: page,
+    },
+  });
+};
+
 export {
   TMDB_BASE_URL,
   getImageUrl,
@@ -73,6 +89,8 @@ export {
   getPopularMovies,
   getPopularTV,
   getTopRatedMovies,
-  getPopularPerson,
+  getPopularPersons,
   getTrendingToday,
+  getNowPlayingMovies,
+  getOnTheAirTV,
 };

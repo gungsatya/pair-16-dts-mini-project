@@ -9,7 +9,7 @@ export default function HeaderFooter(props) {
       <Box
         component="main"
         sx={(theme) => ({
-          paddingTop: "100px",
+          paddingTop: { sm: "75px", md: "100px" },
           backgroundColor: theme.palette.black.main,
           color: theme.palette.black.contrastText,
           width: "100vw",

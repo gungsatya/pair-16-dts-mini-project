@@ -12,7 +12,7 @@ export function Auth(props) {
       <Grid
         item
         xs={false}
-        sm={4}
+        sm={false}
         md={7}
         sx={{
           backgroundImage: "url(/assets/images/ProfilePicture.png)",
@@ -28,13 +28,14 @@ export function Auth(props) {
       <Grid
         item
         xs={12}
-        sm={8}
+        sm={12}
         md={5}
         component={Paper}
         elevation={24}
         square
         sx={(theme) => ({
           backgroundColor: theme.palette.black.main,
+          padding: "50px",
         })}
       >
         <Stack

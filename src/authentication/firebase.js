@@ -6,6 +6,8 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 
 // Your web app's Firebase configuration
@@ -74,10 +76,26 @@ const logoutUser = async () => {
   }
 };
 
+const loginWithGoogle = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: "select_account" });
+    await signInWithPopup(auth, provider);
+  } catch (error) {
+    console.error("Regis Error with code : ", error.code);
+    console.error("Regis Error message : ", error.message);
+    return {
+      status: false,
+      error: error,
+    };
+  }
+};
+
 export {
   auth,
   registerUserWithEmailPassword,
   loginUserWithEmailPassword,
   resetPassword,
   logoutUser,
+  loginWithGoogle,
 };

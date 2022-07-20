@@ -6,7 +6,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.netflixRed.main, 0.85),
   },
-  margin: "20px 0",
+  margin: "10px 0",
 }));
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
@@ -43,7 +43,7 @@ export default function LoginOrRegister(props) {
     <Box
       component="form"
       noValidate
-      sx={{ mt: 1, width: "80%" }}
+      sx={{ mt: 1, width: "100%" }}
       onSubmit={_formCallback}
     >
       <StyledTextField

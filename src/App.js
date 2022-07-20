@@ -14,14 +14,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedAuth>
-              <DashboardPage />
-            </ProtectedAuth>
-          }
-        />
+        <Route path="/" element={<DashboardPage />} />
         <Route
           path="/login"
           element={
@@ -46,14 +39,7 @@ function App() {
             </ProtectedAuth>
           }
         />
-        <Route
-          path="/src/:type"
-          element={
-            <ProtectedAuth>
-              <ItemMainPage />
-            </ProtectedAuth>
-          }
-        />
+        <Route path="/src/:type" element={<ItemMainPage />} />
         <Route
           path="/src/persons/detail/:id"
           element={

@@ -18,6 +18,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useState } from "react";
 import { NavLink, useNavigate, createSearchParams } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import { logoutUser } from "../authentication/firebase.js";
 import { auth } from "../authentication/firebase.js";
@@ -128,6 +129,11 @@ function Header() {
     navigate("/login");
   }
 
+  async function login() {
+    handleCloseUserMenu();
+    navigate("/login");
+  }
+
   return (
     <AppBar color="black" position="fixed" elevation={0}>
       <Box sx={{ padding: "25px 50px" }}>
@@ -166,29 +172,42 @@ function Header() {
                   onKeyDown={handleKeyPress}
                 />
               </Search>
-              <Button
-                variant="span"
-                component={NavLink}
-                to="/profiles"
-                sx={{ textTransform: "none" }}
-              >
-                {user.email}
-              </Button>
-              <IconButton size="large" color="inherit">
-                <NotificationsIcon />
-              </IconButton>
+              {user && (
+                <Button
+                  variant="span"
+                  component={NavLink}
+                  to="/profiles"
+                  sx={{ textTransform: "none" }}
+                >
+                  {user.email}
+                </Button>
+              )}
+              {!user && (
+                <Button variant="span" disabled sx={{ textTransform: "none" }}>
+                  Gust
+                </Button>
+              )}
+              {user && (
+                <IconButton size="large" color="inherit">
+                  <NotificationsIcon />
+                </IconButton>
+              )}
               <Tooltip title="User">
                 <IconButton
                   onClick={handleOpenUserMenu}
                   sx={{ p: 0, color: "white" }}
                 >
-                  <Avatar
-                    alt="User Profile"
-                    src="/assets/images/ProfilePicture.png"
-                    variant="square"
-                  />
+                  {!user && <AccountCircleIcon />}
+                  {user && (
+                    <Avatar
+                      alt="User Profile"
+                      src="/assets/images/ProfilePicture.png"
+                      variant="square"
+                    />
+                  )}
                 </IconButton>
               </Tooltip>
+
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"
@@ -205,9 +224,16 @@ function Header() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem onClick={logout}>
-                  <Typography textAlign="center">Log out</Typography>
-                </MenuItem>
+                {!user && (
+                  <MenuItem onClick={login}>
+                    <Typography textAlign="center">Login</Typography>
+                  </MenuItem>
+                )}
+                {user && (
+                  <MenuItem onClick={logout}>
+                    <Typography textAlign="center">Log out</Typography>
+                  </MenuItem>
+                )}
               </Menu>
             </Box>
           </Stack>

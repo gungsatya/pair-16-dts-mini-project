@@ -5,7 +5,10 @@ import { getImageUrl } from "../requests/tmdb";
 const Content = styled(Box)(({ theme }) => ({
   position: "relative",
   display: "flex",
-  height: "50vh",
+  height: "75vh",
+  [theme.breakpoints.up("xl")]: {
+    height: "50vh",
+  },
 }));
 
 const Background = styled(Box)(({ theme }) => ({
@@ -53,7 +56,11 @@ const Area = styled(Box)(({ theme }) => ({
   right: 0,
   height: "100%",
   zIndex: 3,
-  marginTop: "40px",
+  marginTop: "10px",
+  overflowY: "hidden",
+  [theme.breakpoints.up("xl")]: {
+    marginTop: "40px",
+  },
 }));
 const AreaContainer = styled(Box)(({ theme }) => ({
   padding: "30px 70px",

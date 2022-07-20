@@ -277,7 +277,7 @@ export default function ItemMainPage() {
                   ? itemInterpreterV2(item.media_type, item)
                   : itemInterpreter(item);
               return (
-                <Grid key={idx} item xs={6} md={3}>
+                <Grid key={idx} item xs={12} sm={6} md={3}>
                   <StyledMovieCard variant="outlined">
                     <CardActionArea
                       onClick={(e) => goDetailPage(item.id, item.media_type)}
@@ -286,7 +286,10 @@ export default function ItemMainPage() {
                         component="img"
                         image={getImageUrl(interpredItem.image, "w300")}
                         alt={`${interpredItem.title} Backdrop`}
-                        sx={{ objectFit: "contain", height: "300px" }}
+                        sx={{
+                          objectFit: "contain",
+                          height: { xs: "200px", md: "300px" },
+                        }}
                       />
                       <CardContent>
                         <Typography variant="h6" component="div" noWrap>

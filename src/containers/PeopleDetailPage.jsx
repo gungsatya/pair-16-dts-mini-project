@@ -34,14 +34,28 @@ export default function PeopleDetailPage() {
         }}
       >
         <Container maxWidth="xl">
-          <Card sx={{ display: "flex" }}>
+          <Card
+            sx={{
+              display: "flex",
+              flexDirection: {
+                xs: "column",
+                md: "row",
+              },
+            }}
+          >
             <CardMedia
               component="img"
-              sx={{ width: "30%" }}
+              sx={{
+                width: { xs: "100%", md: "30%" },
+                height: { xs: "50vh", md: "100%" },
+                objectPosition: { xs: "100% 10%" },
+              }}
               image={getImageUrl(detail.profile_path)}
               alt="Profile Picture"
             />
-            <CardContent sx={{ padding: "50px 80px" }}>
+            <CardContent
+              sx={{ padding: { xs: "30px", sm: "50px", xl: "50px 80px" } }}
+            >
               <Stack direction="column" spacing={5}>
                 <Box>
                   <Typography variant="h2">{detail.name}</Typography>

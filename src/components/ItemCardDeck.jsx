@@ -23,9 +23,9 @@ const StyledStack = styled(Stack)(({ theme }) => ({
   },
 }));
 
-const StyledMovieCard = styled(Card)({
+const StyledMovieCard = styled(Card)(({ theme }) => ({
   position: "relative",
-  flex: "0 0 15%",
+  flex: "0 0 80%",
   transition: "transform 300ms ease 100ms",
   "& .MuiCardContent-root": {
     opacity: 0.5,
@@ -45,7 +45,16 @@ const StyledMovieCard = styled(Card)({
   "&:hover": {
     transform: "scale(1.4) !important",
   },
-});
+  [theme.breakpoints.up("sm")]: {
+    flex: "0 0 40%",
+  },
+  [theme.breakpoints.up("md")]: {
+    flex: "0 0 30%",
+  },
+  [theme.breakpoints.up("xl")]: {
+    flex: "0 0 15%",
+  },
+}));
 
 const PrevButton = styled(IconButton)(({ theme }) => ({
   position: "absolute",
@@ -146,6 +155,8 @@ export default function ItemCardDeck({
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
         width: "100%",
+        maxWidth: "100vw",
+        overflowX: "hidden",
       })}
     >
       <Box sx={{ padding: "0 50px" }}>

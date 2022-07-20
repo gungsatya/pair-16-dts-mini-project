@@ -17,6 +17,7 @@ import {
   getNowPlayingMovies,
   getOnTheAirTV,
   getPopularPersons,
+  searchKeyword,
 } from "../requests/tmdb";
 import HeaderFooter from "../templates/HeaderFooter";
 
@@ -47,6 +48,7 @@ export default function ItemMainPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [hasNext, setHasNext] = useState(false);
   const [pageType, setPageType] = useState("");
+  const [keyword, setKeyword] = useState("");
 
   const navigate = useNavigate();
   const params = useParams();
@@ -56,6 +58,7 @@ export default function ItemMainPage() {
     const currentPage = queryStrings.get("page")
       ? parseInt(queryStrings.get("page"))
       : 1;
+    const query = queryStrings.get("query");
     setPageType(params.type);
 
     switch (params.type) {
@@ -94,7 +97,18 @@ export default function ItemMainPage() {
           setPage(currentPage);
         });
         break;
-
+      case "all":
+        searchKeyword(query, currentPage).then((response) => {
+          if (currentPage === 1) {
+            setItems(response.data.results);
+          } else {
+            setItems((old) => [...old, ...response.data.results]);
+          }
+          setTotalPages(response.data.total_pages);
+          setPage(currentPage);
+          setKeyword(query);
+        });
+        break;
       default:
         navigate("/404");
         break;
@@ -114,7 +128,7 @@ export default function ItemMainPage() {
       case "persons":
         return "Popular Persons";
       default:
-        return "Search";
+        return `Search with keyword : ${keyword}`;
     }
   }
 
@@ -160,15 +174,70 @@ export default function ItemMainPage() {
     };
   }
 
+  function itemInterpreterV2(mediaType, item) {
+    let title = "";
+    let image = "";
+
+    switch (mediaType) {
+      case "movie":
+        title = item["original_title"];
+        break;
+      case "tv":
+        title = item["original_name"];
+        break;
+      case "person":
+        title = item["name"];
+        break;
+
+      default:
+        title = "";
+        break;
+    }
+
+    switch (mediaType) {
+      case "movie":
+        image = item["backdrop_path"];
+        break;
+      case "tv":
+        image = item["backdrop_path"];
+        break;
+      case "person":
+        image = item["profile_path"];
+        break;
+
+      default:
+        image = "";
+        break;
+    }
+
+    return {
+      title: title,
+      image: image,
+    };
+  }
+
   function goNextPage() {
     setQueryString({
-      ...queryStrings,
+      query: keyword,
       page: page + 1,
     });
   }
 
   function goDetailPage(id, type = null) {
-    type = type ?? pageType;
+    switch (type) {
+      case "movie":
+        type = "movies";
+        break;
+      case "tv":
+        type = "tv-shows";
+        break;
+      case "person":
+        type = "persons";
+        break;
+      default:
+        type = pageType;
+        break;
+    }
     navigate(`/src/${type}/detail/${id}`);
   }
 
@@ -203,15 +272,21 @@ export default function ItemMainPage() {
           </Box>
           <Grid container spacing={1}>
             {items.map((item, idx) => {
-              const interpredItem = itemInterpreter(item);
+              const interpredItem =
+                pageType === "all"
+                  ? itemInterpreterV2(item.media_type, item)
+                  : itemInterpreter(item);
               return (
                 <Grid key={idx} item xs={6} md={3}>
                   <StyledMovieCard variant="outlined">
-                    <CardActionArea onClick={(e) => goDetailPage(item.id)}>
+                    <CardActionArea
+                      onClick={(e) => goDetailPage(item.id, item.media_type)}
+                    >
                       <CardMedia
                         component="img"
                         image={getImageUrl(interpredItem.image, "w300")}
                         alt={`${interpredItem.title} Backdrop`}
+                        sx={{ objectFit: "contain", height: "300px" }}
                       />
                       <CardContent>
                         <Typography variant="h6" component="div" noWrap>

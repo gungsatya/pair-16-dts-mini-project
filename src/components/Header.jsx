@@ -17,7 +17,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, createSearchParams } from "react-router-dom";
 
 import { logoutUser } from "../authentication/firebase.js";
 import { auth } from "../authentication/firebase.js";
@@ -96,6 +96,23 @@ function Header() {
   const [user] = useAuthState(auth);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
+  const [query, setQuery] = useState("");
+
+  function onQueryChange(event) {
+    setQuery(event.target.value);
+  }
+
+  function handleKeyPress(event) {
+    if (event.key === "Enter") {
+      navigate(
+        `/src/all?${createSearchParams({
+          query: query,
+          page: 1,
+        })}`
+      );
+      setQuery("");
+    }
+  }
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -144,6 +161,9 @@ function Header() {
                 <StyledInputBase
                   placeholder="Search…"
                   inputProps={{ "aria-label": "search" }}
+                  value={query}
+                  onChange={onQueryChange}
+                  onKeyDown={handleKeyPress}
                 />
               </Search>
               <Button

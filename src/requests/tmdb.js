@@ -94,6 +94,15 @@ const getSimilar = (type, id) => {
   return axios.get(`/${type}/${id}/similar`);
 };
 
+const searchKeyword = (keyword, page = 1) => {
+  return axios.get(`/search/multi`, {
+    params: {
+      page: page,
+      query: keyword,
+    },
+  });
+};
+
 export {
   TMDB_BASE_URL,
   getImageUrl,
@@ -108,4 +117,5 @@ export {
   getVideos,
   getDetail,
   getSimilar,
+  searchKeyword,
 };

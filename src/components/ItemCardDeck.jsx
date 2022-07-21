@@ -156,7 +156,7 @@ export default function ItemCardDeck({
         marginBottom: theme.spacing(3),
         width: "100%",
         maxWidth: "100vw",
-        overflowX: "hidden",
+        overflowX: { xs: "hidden", xl: "inherit" },
       })}
     >
       <Box sx={{ padding: "0 50px" }}>

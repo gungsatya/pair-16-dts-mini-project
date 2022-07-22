@@ -49,7 +49,7 @@ export default function PeopleDetailPage() {
                 height: { xs: "50vh", md: "100%" },
                 objectPosition: { xs: "100% 10%" },
               }}
-              src={getImageUrl(detail.profile_path)}
+              src={getImageUrl(detail.profile_path, "original")}
               alt="Profile Picture"
               showLoading
             />

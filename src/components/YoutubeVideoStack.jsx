@@ -47,6 +47,7 @@ export default function YoutubeVideoStack({ type, id, image }) {
       getVideos(type, id).then((response) => {
         const data = response.data;
         setVideos(data.results.filter((video) => video.site !== "Youtube"));
+        setActiveIndex(0);
       });
     }
   }, [type, id]);

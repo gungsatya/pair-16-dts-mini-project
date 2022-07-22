@@ -19,7 +19,7 @@ import { Image } from "mui-image";
 const StyledStack = styled(Stack)(({ theme }) => ({
   position: "relative",
   "&:hover .MuiPaper-root": {
-    transform: "translateX(-25%)",
+    transform: "translateX(-20%)",
   },
 }));
 
@@ -40,10 +40,10 @@ const StyledMovieCard = styled(Card)(({ theme }) => ({
     WebkitTransition: "opacity .55s ease-in-out",
   },
   "&:hover ~ &": {
-    transform: "translateX(25%)",
+    transform: "translateX(20%)",
   },
   "&:hover": {
-    transform: "scale(1.4) !important",
+    transform: "scale(1.2) !important",
   },
   [theme.breakpoints.up("sm")]: {
     flex: "0 0 40%",

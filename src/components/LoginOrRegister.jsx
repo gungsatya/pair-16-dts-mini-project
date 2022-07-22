@@ -1,5 +1,15 @@
-import { alpha, Box, Button, styled, TextField } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  alpha,
+  Box,
+  Button,
+  styled,
+  TextField,
+} from "@mui/material";
 import { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../authentication/firebase.js";
 
 const StyledButton = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.netflixRed.main,
@@ -25,6 +35,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 export default function LoginOrRegister(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [, isLoading, error] = useAuthState(auth);
 
   function _emailOnChange(event) {
     setEmail(event.target.value);
@@ -46,6 +57,12 @@ export default function LoginOrRegister(props) {
       sx={{ mt: 1, width: "100%" }}
       onSubmit={_formCallback}
     >
+      {(error || props.error) && (
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {error ?? props.error}
+        </Alert>
+      )}
       <StyledTextField
         margin="normal"
         required
@@ -73,7 +90,13 @@ export default function LoginOrRegister(props) {
         value={password}
         onChange={_passwordOnChange}
       />
-      <StyledButton type="submit" fullWidth variant="contained" size="large">
+      <StyledButton
+        type="submit"
+        fullWidth
+        variant="contained"
+        size="large"
+        disabled={isLoading}
+      >
         {props.type === "login" ? "Login" : "Register"}
       </StyledButton>
     </Box>

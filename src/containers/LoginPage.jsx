@@ -8,16 +8,18 @@ import {
   loginUserWithEmailPassword,
   loginWithGoogle,
 } from "../authentication/firebase.js";
+import { useState } from "react";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [loginError, setLoginError] = useState(null);
 
   async function _login(email, password) {
     const response = await loginUserWithEmailPassword(email, password);
     if (response.status) {
       navigate("/profiles");
     } else {
-      // setLoginError(response.error);
+      setLoginError(response.error.code);
     }
   }
 
@@ -26,7 +28,7 @@ export default function LoginPage() {
     if (response.status) {
       navigate("/profiles");
     } else {
-      // setLoginError(response.error);
+      setLoginError(response.error.code);
     }
   }
 
@@ -39,7 +41,11 @@ export default function LoginPage() {
         sx={{ height: "100%" }}
         gap={2}
       >
-        <LoginOrRegister formOnSubmit={_login} type="login" />
+        <LoginOrRegister
+          formOnSubmit={_login}
+          type="login"
+          error={loginError}
+        />
         <Button
           startIcon={<GoogleIcon />}
           variant="outlined"

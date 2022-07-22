@@ -4,7 +4,6 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardMedia,
   Grid,
   Stack,
   styled,
@@ -20,6 +19,7 @@ import {
   searchKeyword,
 } from "../requests/tmdb";
 import HeaderFooter from "../templates/HeaderFooter";
+import { Image } from "mui-image";
 
 const StyledMovieCard = styled(Card)({
   zIndex: 1,
@@ -282,9 +282,8 @@ export default function ItemMainPage() {
                     <CardActionArea
                       onClick={(e) => goDetailPage(item.id, item.media_type)}
                     >
-                      <CardMedia
-                        component="img"
-                        image={getImageUrl(interpredItem.image, "w300")}
+                      <Image
+                        src={getImageUrl(interpredItem.image, "w300")}
                         alt={`${interpredItem.title} Backdrop`}
                         sx={{
                           objectFit: "contain",

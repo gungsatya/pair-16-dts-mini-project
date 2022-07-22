@@ -4,7 +4,6 @@ import {
   styled,
   Card,
   CardActionArea,
-  CardMedia,
   CardContent,
   IconButton,
   Box,
@@ -15,6 +14,7 @@ import { getImageUrl } from "../requests/tmdb";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useNavigate } from "react-router-dom";
+import { Image } from "mui-image";
 
 const StyledStack = styled(Stack)(({ theme }) => ({
   position: "relative",
@@ -179,11 +179,13 @@ export default function ItemCardDeck({
               return (
                 <StyledMovieCard key={idx} ref={elementRef} variant="outlined">
                   <CardActionArea onClick={() => goDetailPage(item.id)}>
-                    <CardMedia
-                      component="img"
-                      image={getImageUrl(item[image], "w300")}
-                      alt={`${item[item_name]} Backdrop`}
-                    />
+                    {item[item_name] && (
+                      <Image
+                        showLoading
+                        src={getImageUrl(item[image], "w300")}
+                        alt={`${item[item_name]} Backdrop`}
+                      />
+                    )}
                     <CardContent>
                       <Typography variant="h6" component="div" noWrap>
                         {item[item_name]}

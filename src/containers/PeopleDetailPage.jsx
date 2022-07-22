@@ -2,7 +2,6 @@ import {
   Box,
   Card,
   CardContent,
-  CardMedia,
   Container,
   Stack,
   Typography,
@@ -11,6 +10,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import HeaderFooter from "../templates/HeaderFooter";
 import { useEffect, useState } from "react";
 import { getDetail, getImageUrl } from "../requests/tmdb";
+import { Image } from "mui-image";
 
 export default function PeopleDetailPage() {
   const navigate = useNavigate();
@@ -43,15 +43,15 @@ export default function PeopleDetailPage() {
               },
             }}
           >
-            <CardMedia
-              component="img"
+            <Image
               sx={{
                 width: { xs: "100%", md: "30%" },
                 height: { xs: "50vh", md: "100%" },
                 objectPosition: { xs: "100% 10%" },
               }}
-              image={getImageUrl(detail.profile_path)}
+              src={getImageUrl(detail.profile_path)}
               alt="Profile Picture"
+              showLoading
             />
             <CardContent
               sx={{ padding: { xs: "30px", sm: "50px", xl: "50px 80px" } }}

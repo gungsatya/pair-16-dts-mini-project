@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { getImageUrl, getVideos } from "../requests/tmdb";
 import PropTypes from "prop-types";
 import YoutubeVideo from "./YoutubeVideo";
-import { Box, Card, CardMedia, Tab, Tabs } from "@mui/material";
+import { Box, Card, Tab, Tabs } from "@mui/material";
+import { Image } from "mui-image";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -83,10 +84,10 @@ export default function YoutubeVideoStack({ type, id, image }) {
       )}
       {videos.length < 1 && (
         <Card>
-          <CardMedia
-            component="img"
+          <Image
+            showLoading
             alt="Backdrop"
-            image={getImageUrl(image, "w1280")}
+            src={getImageUrl(image, "w1280")}
             sx={{ height: "480px", objectFit: "contain" }}
           />
         </Card>
